@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
@@ -10,25 +10,45 @@ const Home = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
 
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetchProducts();
+  }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const url = "https://dummyjson.com/products";
+      const response = await fetch(url);
+      const data = await response.json();
+      setProducts(data.products);
+      setLoading(false);
+    } catch (error) {
+      console.error("Error fetching products:", error);
+      setLoading(false);
+    }
+  };
+
+  if (loading) {
+    return <div>Loading products...</div>;
+  }
   return (
     <div>
-      <h1>Home</h1>
-      <div>
-        <div>
-          <button
-            aria-label="Increment value"
-            onClick={() => dispatch(increment())}
-          >
-            Increment
-          </button>
-          <span>{count}</span>
-          <button
-            aria-label="Decrement value"
-            onClick={() => dispatch(decrement())}
-          >
-            Decrement
-          </button>
-        </div>
+      <h1>ShoppyGlobe Products</h1>
+      <div className="products-container">
+        {products.map((product) => (
+          <div key={product.id} className="product-card">
+            <img src={product.thumbnail} alt={product.title} />
+            <h3>{product.title}</h3>
+            <p>{product.description}</p>
+            <div className="product-details">
+              <span className="price">${product.price}</span>
+              <span className="rating">Rating: {product.rating}⭐</span>
+            </div>
+            <button className="add-to-cart">Add to Cart</button>
+          </div>
+        ))}
       </div>
     </div>
   );
