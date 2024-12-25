@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import reactLogo from "./assets/react.svg";
+
 import viteLogo from "/vite.svg";
 import "./App.css";
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Link, Route, Routes } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "./redux/slices/counterSlice";
+import { Header } from "./components/Header";
 
 const Home = () => {
   const count = useSelector((state) => state.counter.value);
@@ -61,10 +62,13 @@ const Cart = () => {
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/cart" element={<Cart />} />
-      </Routes>
+      <div>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/cart" element={<Cart />} />
+        </Routes>
+      </div>
     </BrowserRouter>
   );
 }
