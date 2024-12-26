@@ -6,6 +6,7 @@ import { BrowserRouter, Link, Route, Routes } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "./redux/slices/counterSlice";
 import { Header } from "./components/Header";
+import { Footer } from "./components/Footer";
 
 const Home = () => {
   const count = useSelector((state) => state.counter.value);
@@ -62,12 +63,15 @@ const Cart = () => {
 function App() {
   return (
     <BrowserRouter>
-      <div>
+      <div className="app-container">
         <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </div>
+        <Footer />
       </div>
     </BrowserRouter>
   );
