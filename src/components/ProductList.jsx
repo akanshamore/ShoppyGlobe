@@ -2,6 +2,7 @@ import { useProducts } from "../hooks/useProducts";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, updateQuantity } from "../redux/slices/cartSlice";
 import { useNavigate } from "react-router";
+import ProductItem from "./ProductItem";
 import "./ProductList.css";
 
 const ProductList = () => {
@@ -45,50 +46,16 @@ const ProductList = () => {
       </div>
 
       <div className="products-grid">
-        {products.map((product) => {
-          const quantity = getCartItemQuantity(product.id);
-          return (
-            <div
-              key={product.id}
-              className="product-card"
-              onClick={() => handleProductClick(product.id)}
-            >
-              <img src={product.thumbnail} alt={product.title} />
-              <h3>{product.title}</h3>
-              <p className="price">${product.price}</p>
-              <p className="brand">Brand: {product.brand}</p>
-              <p className="rating">Rating: {product.rating}⭐</p>
-              <p className="stock">Stock: {product.stock}</p>
-              <p className="category">Category: {product.category}</p>
-
-              {quantity === 0 ? (
-                <button onClick={(e) => handleAddToCart(e, product)}>
-                  Add to Cart
-                </button>
-              ) : (
-                <div className="quantity-controls">
-                  <button
-                    onClick={(e) =>
-                      handleQuantityChange(e, product.id, quantity - 1)
-                    }
-                    disabled={quantity <= 1}
-                  >
-                    -
-                  </button>
-                  <span>{quantity}</span>
-                  <button
-                    onClick={(e) =>
-                      handleQuantityChange(e, product.id, quantity + 1)
-                    }
-                    disabled={quantity >= product.stock}
-                  >
-                    +
-                  </button>
-                </div>
-              )}
-            </div>
-          );
-        })}
+        {products.map((product) => (
+          <ProductItem
+            key={product.id}
+            product={product}
+            quantity={getCartItemQuantity(product.id)}
+            onAddToCart={handleAddToCart}
+            onQuantityChange={handleQuantityChange}
+            onProductClick={handleProductClick}
+          />
+        ))}
       </div>
     </div>
   );
