@@ -14,7 +14,7 @@ const ProductItem = ({
       <h3>{product.title}</h3>
       <p className="price">${product.price}</p>
       <p className="brand">Brand: {product.brand}</p>
-      <p className="rating">Rating: {product.rating}⭐</p>
+      <p className="rating">Rating: {product.rating} ⭐</p>
       <p className="stock">Stock: {product.stock}</p>
       <p className="category">Category: {product.category}</p>
 
@@ -24,7 +24,7 @@ const ProductItem = ({
         <div className="quantity-controls">
           <button
             onClick={(e) => onQuantityChange(e, product.id, quantity - 1)}
-            disabled={quantity <= 1}
+            disabled={quantity <= 0}
           >
             -
           </button>
