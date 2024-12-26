@@ -7,57 +7,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { decrement, increment } from "./redux/slices/counterSlice";
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
+import ProductList from "./components/ProductList";
+import Cart from "./components/Cart";
+import Checkout from "./components/Checkout";
+import ProductDetail from "./components/ProductDetail";
 
 const Home = () => {
-  const count = useSelector((state) => state.counter.value);
-  const dispatch = useDispatch();
-
-  const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchProducts();
-  }, []);
-
-  const fetchProducts = async () => {
-    try {
-      const url = "https://dummyjson.com/products";
-      const response = await fetch(url);
-      const data = await response.json();
-      setProducts(data.products);
-      setLoading(false);
-    } catch (error) {
-      console.error("Error fetching products:", error);
-      setLoading(false);
-    }
-  };
-
-  if (loading) {
-    return <div>Loading products...</div>;
-  }
   return (
     <div>
-      <h1>ShoppyGlobe Products</h1>
-      <div className="products-container">
-        {products.map((product) => (
-          <div key={product.id} className="product-card">
-            <img src={product.thumbnail} alt={product.title} />
-            <h3>{product.title}</h3>
-            <p>{product.description}</p>
-            <div className="product-details">
-              <span className="price">${product.price}</span>
-              <span className="rating">Rating: {product.rating}⭐</span>
-            </div>
-            <button className="add-to-cart">Add to Cart</button>
-          </div>
-        ))}
-      </div>
+      <ProductList />
     </div>
   );
-};
-
-const Cart = () => {
-  return <h1>Cart</h1>;
 };
 
 function App() {
@@ -68,7 +28,9 @@ function App() {
         <div className="main-content">
           <Routes>
             <Route path="/" element={<Home />} />
+            <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/checkout" element={<Checkout />} />
           </Routes>
         </div>
         <Footer />
