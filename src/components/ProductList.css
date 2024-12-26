@@ -53,3 +53,29 @@
 .product-card button:hover {
     background-color: #0056b3;
 }
+
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.quantity-controls button {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid #ccc;
+    background-color: white;
+    cursor: pointer;
+}
+
+.quantity-controls button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.quantity-controls span {
+    min-width: 30px;
+    text-align: center;
+}
