@@ -17,15 +17,18 @@ const ProductList = () => {
     dispatch(addToCart(product));
   };
 
+  // Handles the change of product quantity in the cart
   const handleQuantityChange = (e, productId, newQuantity) => {
     e.stopPropagation();
     dispatch(updateQuantity({ id: productId, quantity: newQuantity }));
   };
 
+  // Navigates to the product detail page when the product is clicked
   const handleProductClick = (productId) => {
     navigate(`/product/${productId}`);
   };
 
+  // Retrieves the current quantity of the product in the cart
   const getCartItemQuantity = (productId) => {
     const cartItem = cartItems.find((item) => item.id === productId);
     return cartItem ? cartItem.quantity : 0;

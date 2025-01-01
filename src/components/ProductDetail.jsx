@@ -15,13 +15,16 @@ const ProductDetail = () => {
 
   const cartItems = useSelector((state) => state.cart.items);
 
+  // Check if the product exists in the cart and get its quantity
   const cartItem = cartItems.find((item) => item.id === Number(id));
   const quantityInCart = cartItem ? cartItem.quantity : 0;
 
+  // Navigate back to the previous page
   const handleBack = () => {
     navigate(-1);
   };
 
+  // Fetch product details from API when the component is mounted
   useEffect(() => {
     const fetchProduct = async () => {
       try {
@@ -49,6 +52,7 @@ const ProductDetail = () => {
     }
   };
 
+  // Add product to the cart with an initial quantity of 1
   const handleAddToCart = (e) => {
     e.stopPropagation();
     dispatch(addToCart({ ...product, quantity: 1 }));
@@ -67,6 +71,7 @@ const ProductDetail = () => {
         </div>
       </div>
     );
+  // Display a message if the product is not found
   if (!product) return <div>Product not found</div>;
 
   return (

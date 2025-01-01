@@ -4,7 +4,9 @@ import logo from "../assets/logo.svg"; // You'll need to add this logo image to 
 import { useSelector } from "react-redux";
 
 export const Header = () => {
+  // Retrieve cart items from the Redux store
   const cartItems = useSelector((state) => state.cart.items);
+  // Calculate the total number of items in the cart
   const cartItemCount = cartItems.reduce(
     (total, item) => total + item.quantity,
     0

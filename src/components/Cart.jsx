@@ -7,10 +7,13 @@ const Cart = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
 
+  // Navigate to the checkout page when the "Proceed to Checkout" button is clicked
+
   const handleCheckout = () => {
     navigate("/checkout");
   };
 
+  // Calculate the total cost of all items in the cart, factoring in their quantity and price
   const calculateTotal = () => {
     return cartItems.reduce(
       (total, item) => total + item.price * item.quantity,

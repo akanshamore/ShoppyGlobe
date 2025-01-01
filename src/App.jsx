@@ -13,6 +13,7 @@ const Checkout = lazy(() => import("./components/Checkout"));
 const ProductDetail = lazy(() => import("./components/ProductDetail"));
 const NotFound = lazy(() => import("./components/NotFound"));
 
+// Home component with suspense wrapper for product listing
 const Home = () => {
   return (
     <div>
@@ -22,7 +23,7 @@ const Home = () => {
     </div>
   );
 };
-
+//Main App component
 function App() {
   return (
     <BrowserRouter>

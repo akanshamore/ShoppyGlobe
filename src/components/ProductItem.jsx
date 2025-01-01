@@ -2,8 +2,8 @@ import React from "react";
 import "./ProductItem.css";
 
 const ProductItem = ({
-  product,
-  quantity,
+  product, // Product data
+  quantity, // Quantity of the product in the cart
   onAddToCart,
   onQuantityChange,
   onProductClick,
@@ -18,6 +18,7 @@ const ProductItem = ({
       <p className="stock">Stock: {product.stock}</p>
       <p className="category">Category: {product.category}</p>
 
+      {/* Add to Cart or Quantity Controls */}
       {quantity === 0 ? (
         <button onClick={(e) => onAddToCart(e, product)}>Add to Cart</button>
       ) : (

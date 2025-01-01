@@ -5,6 +5,7 @@ import "./Checkout.css";
 
 const Checkout = () => {
   const cartItems = useSelector((state) => state.cart.items);
+  // State to manage form data for shipping and payment information
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -24,6 +25,7 @@ const Checkout = () => {
     );
   };
 
+  // Update form data dynamically as the user inputs values
   const handleInputChange = (e) => {
     setFormData({
       ...formData,
