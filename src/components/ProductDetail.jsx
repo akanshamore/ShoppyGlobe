@@ -9,9 +9,9 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [product, setProduct] = useState(null);
-  const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const dispatch = useDispatch();
+  const [error, setError] = useState(null);
 
   const cartItems = useSelector((state) => state.cart.items);
 
@@ -25,12 +25,16 @@ const ProductDetail = () => {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
+        setLoading(true);
         const response = await fetch(`https://dummyjson.com/products/${id}`);
+        if (!response.ok) {
+          throw new Error(`Failed to fetch product (${response.status})`);
+        }
         const data = await response.json();
         setProduct(data);
-        setLoading(false);
       } catch (error) {
-        console.error("Error fetching product:", error);
+        setError(error.message);
+      } finally {
         setLoading(false);
       }
     };
@@ -39,7 +43,7 @@ const ProductDetail = () => {
   }, [id]);
 
   const handleQuantityChange = (e, productId, newQuantity) => {
-    e.stopPropagation(); // Prevent event bubbling
+    e.stopPropagation();
     if (newQuantity >= 0) {
       dispatch(updateQuantity({ id: productId, quantity: newQuantity }));
     }
@@ -51,6 +55,18 @@ const ProductDetail = () => {
   };
 
   if (loading) return <div>Loading...</div>;
+  if (error)
+    return (
+      <div className="error-container">
+        <button className="back-button" onClick={handleBack}>
+          ← Back
+        </button>
+        <div className="error-message">
+          <h2>Oops! Something went wrong</h2>
+          <p>{error}</p>
+        </div>
+      </div>
+    );
   if (!product) return <div>Product not found</div>;
 
   return (

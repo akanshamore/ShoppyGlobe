@@ -11,10 +11,12 @@ export const Header = () => {
   );
   return (
     <header className="header">
-      <div className="logo">
-        <img src={logo} alt="ShoppyGlobe Logo" />
-        <h2>ShoppyGlobe</h2>
-      </div>
+      <Link to="/" className="logo">
+        <div className="logo">
+          <img src={logo} alt="ShoppyGlobe Logo" />
+          <h2>ShoppyGlobe</h2>
+        </div>
+      </Link>
       <nav className="nav-links">
         <Link to="/">Home</Link>
         <Link to="/cart">Cart {cartItemCount}</Link>

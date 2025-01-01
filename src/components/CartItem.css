@@ -38,3 +38,18 @@
     border-radius: 4px;
     cursor: pointer;
 }
+
+.remove-button {
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    margin-top: 8px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.remove-button:hover {
+    background-color: #ff0000;
+}

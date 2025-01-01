@@ -14,6 +14,10 @@ const CartItem = ({ item }) => {
     }
   };
 
+  const handleRemoveItem = () => {
+    dispatch(removeFromCart(item.id));
+  };
+
   return (
     <div className="cart-item">
       <img src={item.thumbnail} alt={item.title} className="cart-item-image" />
@@ -32,6 +36,9 @@ const CartItem = ({ item }) => {
             +
           </button>
         </div>
+        <button className="remove-button" onClick={handleRemoveItem}>
+          Remove Item
+        </button>
       </div>
     </div>
   );
