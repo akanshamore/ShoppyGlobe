@@ -1,27 +1,14 @@
-import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "../redux/slices/cartSlice";
-import "./Cart.css";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import CartItem from "./CartItem";
+import "./Cart.css";
 
 const Cart = () => {
   const navigate = useNavigate();
   const cartItems = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch();
-
-  const handleRemoveItem = (productId) => {
-    dispatch(removeFromCart(productId));
-  };
 
   const handleCheckout = () => {
     navigate("/checkout");
-  };
-  const handleQuantityChange = (productId, newQuantity) => {
-    if (newQuantity >= 0) {
-      dispatch(updateQuantity({ id: productId, quantity: newQuantity }));
-      if (newQuantity === 0) {
-        dispatch(removeFromCart(productId));
-      }
-    }
   };
 
   const calculateTotal = () => {
@@ -40,36 +27,7 @@ const Cart = () => {
         <>
           <div className="cart-items">
             {cartItems.map((item) => (
-              <div key={item.id} className="cart-item">
-                <img
-                  src={item.thumbnail}
-                  alt={item.title}
-                  className="cart-item-image"
-                />
-                <div className="cart-item-details">
-                  <h3>{item.title}</h3>
-                  <p>${item.price}</p>
-                  <div className="quantity-controls">
-                    <button
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity - 1)
-                      }
-                      disabled={item.quantity <= 0}
-                    >
-                      -
-                    </button>
-                    <span>{item.quantity}</span>
-                    <button
-                      onClick={() =>
-                        handleQuantityChange(item.id, item.quantity + 1)
-                      }
-                      disabled={item.quantity >= item.stock}
-                    >
-                      +
-                    </button>
-                  </div>
-                </div>
-              </div>
+              <CartItem key={item.id} item={item} />
             ))}
           </div>
           <div className="cart-summary">
