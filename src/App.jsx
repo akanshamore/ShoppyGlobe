@@ -11,6 +11,7 @@ import ProductList from "./components/ProductList";
 import Cart from "./components/Cart";
 import Checkout from "./components/Checkout";
 import ProductDetail from "./components/ProductDetail";
+import NotFound from "./components/NotFound";
 
 const Home = () => {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/product/:id" element={<ProductDetail />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<Checkout />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />
