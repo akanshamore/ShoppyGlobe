@@ -1,22 +1,24 @@
-import { useEffect, useState } from "react";
-
-import viteLogo from "/vite.svg";
+import { Suspense, lazy } from "react";
+import { BrowserRouter, Route, Routes } from "react-router";
 import "./App.css";
-import { BrowserRouter, Link, Route, Routes } from "react-router";
-import { useSelector, useDispatch } from "react-redux";
-import { decrement, increment } from "./redux/slices/counterSlice";
+
+// load critical components
 import { Header } from "./components/Header";
 import { Footer } from "./components/Footer";
-import ProductList from "./components/ProductList";
-import Cart from "./components/Cart";
-import Checkout from "./components/Checkout";
-import ProductDetail from "./components/ProductDetail";
-import NotFound from "./components/NotFound";
+
+// Lazy load non-critical components
+const ProductList = lazy(() => import("./components/ProductList"));
+const Cart = lazy(() => import("./components/Cart"));
+const Checkout = lazy(() => import("./components/Checkout"));
+const ProductDetail = lazy(() => import("./components/ProductDetail"));
+const NotFound = lazy(() => import("./components/NotFound"));
 
 const Home = () => {
   return (
     <div>
-      <ProductList />
+      <Suspense fallback={<div>Loading products...</div>}>
+        <ProductList />
+      </Suspense>
     </div>
   );
 };
@@ -27,13 +29,15 @@ function App() {
       <div className="app-container">
         <Header />
         <div className="main-content">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/product/:id" element={<ProductDetail />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/product/:id" element={<ProductDetail />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
         </div>
         <Footer />
       </div>
